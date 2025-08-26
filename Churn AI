@@ -1,0 +1,19 @@
+###Creating a model using SQL on BigQuery
+
+CREATE OR REPLACE MODEL `inspired-memory-466814-p3.Ingestion.Churn_AI`
+OPTIONS(
+  model_type = 'logistic_reg',
+  input_label_cols = ['churn']
+) AS
+SELECT
+  age,
+  tenure_months,
+  monthly_spend,
+  support_tickets,
+  login_frequency,
+  gender_binary,
+  is_basic,
+  is_standard,
+  churn
+FROM `inspired-memory-466814-p3.Ingestion.churn_clean_data`
+WHERE RAND() < 0.8;  -- 80% training split
